@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from credentials import token
 
 discord.utils.setup_logging()
 
@@ -80,4 +81,4 @@ async def multiply_command(ctx):
     except ValueError:
         await ctx.send('You did not type a number!')
 
-bot.run('MTA3NzM2NjMyNTQwOTc0Mjg3OA.GEE7Gp.-BQKa5BnzWbJ5XoOOi8GJb4L4gqB5kdLC2HmWg')
+bot.run(token)
