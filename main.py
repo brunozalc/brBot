@@ -94,11 +94,15 @@ async def weather_command(ctx, city: str):
     weather_suggestions = {
     "Clouds": "You should bring an umbrella if things look overcast!",
     "Rain": "You might want to take an umbrella with you!",
+    "Drizzle": "You might want to take an umbrella with you!",
     "Clear": "It looks like a good day to go outside!",
     "Snow": "You should bring a jacket and a hat!",
     "Thunderstorm": "You should stay inside!",
     "Tornado": "You should stay inside! Please be safe!",
-    "Mist": "Be careful when driving!"
+    "Mist": "Be careful when driving!",
+    "Fog": "Be careful when driving!",
+    "Smoke": "Be careful when driving! Maybe use a mask if you are going outside!",
+    "Haze": "Be careful when driving! Maybe use a mask if you are going outside!"
     }
     
     api_key = WEATHER_API_KEY
@@ -108,13 +112,12 @@ async def weather_command(ctx, city: str):
     weather = response.json()
 
     if response.status_code != 200:
-        print(f'Process exited wit error: {response.status_code}')
+        print(f'Process exited with error: {response.status_code}')
         await ctx.response.send_message('Sorry, there was an error. Either the city does not exist or you did not type it correctly.')
 
     else:
         sent = False
         for key in weather_suggestions.keys():
-            print(key)
             if key in weather["weather"][0]["main"]:
                 await ctx.response.send_message(f'Weather in {city} is {weather["weather"][0]["description"]}. The temperature is {round(weather["main"]["temp"])}°C and the humidity is {weather["main"]["humidity"]}%. {weather_suggestions[weather["weather"][0]["main"]]}')
                 sent = True
